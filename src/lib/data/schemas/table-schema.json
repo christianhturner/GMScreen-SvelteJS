@@ -1,0 +1,132 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "tables": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "title",
+                    "columns"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the table"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Display title for the table"
+                    },
+                    "columns": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "header",
+                                "type",
+                                "data"
+                            ],
+                            "properties": {
+                                "header": {
+                                    "type": "string",
+                                    "description": "Column header text"
+                                },
+                                "id": {
+                                    "type": "string",
+                                    "description": "Optional unique identifier for the column"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "string",
+                                        "number",
+                                        "boolean"
+                                    ],
+                                    "description": "Data type of the column"
+                                },
+                                "align": {
+                                    "type": "string",
+                                    "enum": [
+                                        "left",
+                                        "right",
+                                        "center"
+                                    ],
+                                    "description": "Text alignment for the column"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "description": "Array of values for the column"
+                                }
+                            }
+                        }
+                    },
+                    "tableAttributes": {
+                        "type": "object",
+                        "properties": {
+                            "adHocEntries": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "content": {
+                                            "type": "string",
+                                            "description": "Content of the ad-hoc entry"
+                                        },
+                                        "colspan": {
+                                            "type": "number",
+                                            "description": "Number of columns to span"
+                                        },
+                                        "spanIds": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "description": "IDs of columns to span"
+                                        },
+                                        "align": {
+                                            "description": "Vertical alignment of the entry or specific position of row entry",
+                                            "oneOf": [
+                                                {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "top",
+                                                        "bottom"
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "number",
+                                                    "minimum": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            "style": {
+                                "type": "object",
+                                "description": "Custom styling options for the table"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string",
+                    "description": "Version of the data format"
+                },
+                "lastUpdated": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Last update date of the data"
+                }
+            }
+        }
+    }
+}
