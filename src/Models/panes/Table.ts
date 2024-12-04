@@ -1,5 +1,4 @@
 import type { ITableData, ITable, IMetadata } from "$lib/data/pf2e/types/tables.ts";
-import { error } from "@sveltejs/kit";
 
 export class TablePane {
     tables: ITable[];
@@ -66,18 +65,20 @@ export class TablePane {
                 const createRow = document.createElement("tr");
                 createRow.setAttribute("id", `table-${tableIndex}-row-${rowIndex}`);
 
+                newTable.append(createRow);
+
                 while (columnIndex < maxColumnDataAmount - 1) {
                     table.columns.forEach((column) => {
-                        if (!column.data[columnIndex]) {
+                        if (column.data[columnIndex]) {
                             const createCell = document.createElement("td");
                             createCell.textContent = (column.data[columnIndex] as number).toString();
-                            createRow.append(createCell);
+                            const queryForRow = document.getElementById(`table-${tableIndex}-row-${rowIndex + 2}`)
+                            queryForRow?.append(createCell)
                         }
                     });
                     columnIndex++;
                 }
 
-                newTable.append(createRow);
                 largestColumn--;
             }
         });
